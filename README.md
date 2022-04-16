@@ -2,4 +2,4 @@
 
 # Requirements
 
-SystemC
+SystemC installed with C++14
