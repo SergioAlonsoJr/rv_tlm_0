@@ -7,10 +7,10 @@
 
 using namespace std;
 
-#define get_bit(word, index) (word >> index)&1
-#define set_bit(word, index, val) ((word & ~(1 << index)) | ((val&1) << index))
-#define get_field(word, index, mask) (word >> index)&mask
-#define set_field(word, index, mask, value) (word & ~(mask << index)) | (value << index)
+#define rv_get_bit(word, index) (word >> index)&1
+#define rv_set_bit(word, index, val) ((word & ~(1 << index)) | ((val&1) << index))
+#define rv_get_field(word, index, mask) (word >> index)&mask
+#define rv_set_field(word, index, mask, value) (word & ~(mask << index)) | (value << index)
 
 enum OPCODES {
     LUI = 0x37,		AUIPC = 0x17,		// atribui 20 msbits
@@ -64,31 +64,6 @@ enum REGISTERS {
 //
 enum { MEM_SIZE = 4096 };
 
-
-extern
-int32_t breg[32];
-
-extern
-uint32_t pc,						// contador de programa
-ri;						// registrador de intrucao
-
-extern
-int32_t		imm12_i,				// constante 12 bits
-imm12_s,				// constante 12 bits
-imm13,					// constante 13 bits
-imm20_u,				// constante 20 bis mais significativos
-imm21;					// constante 21 bits
-
-extern
-uint32_t	global_opcode,					// codigo da operacao
-rs1,					// indice registrador rs
-rs2,					// indice registrador rt
-rd,						// indice registrador rd
-shamt,					// deslocamento
-funct3,					// campos auxiliares
-funct7;					// constante instrucao tipo J
-
-
 struct instruction_context_st {
     uint32_t ri, pc;
     INSTRUCTIONS ins_code;
@@ -96,32 +71,6 @@ struct instruction_context_st {
     REGISTERS rs1, rs2, rd;
     int32_t shamt, imm12_i, imm12_s, imm13, imm20_u, imm21;
 };
-
-extern instruction_context_st global_ic;
-
-
-//
-// Funções definidas em riscv.cpp
-//
-
-void fetch ();
-void decode (instruction_context_st& ic);
-void pc_branch(int32_t offset, instruction_context_st& ic);
-uint32_t unsign(int32_t x);
-int logSh3(int32_t x, int32_t n);
-
-__attribute__((unused)) void print_instr(instruction_context_st& ic);
-INSTRUCTIONS get_instr_code(uint32_t opcode, uint32_t func3, uint32_t func7);
-FORMATS get_i_format(uint32_t opcode);
-
-__attribute__((unused)) __attribute__((unused)) void debug_decode(instruction_context_st& ic);
-
-__attribute__((unused)) void dump_reg(char format, bool include_zero);
-
-__attribute__((unused)) void dump_mem(int start_byte, int end_byte, char format);
-int load_mem(const char *fn, int start);
-void execute (instruction_context_st& ic);
-void step();
 
 
 

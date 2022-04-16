@@ -8,5 +8,5 @@ find_package(SystemCLanguage CONFIG REQUIRED)
 
 
 
-add_executable(rv_tlm_0 rv_tlm_0.cpp riscV.cpp globals.h memoria.cpp memoria.h memory_content/code.bin memory_content/data.bin rv_tlm_0.h)
+add_executable(rv_tlm_0 rv_tlm_0.cpp globals.h mem_rv.cpp mem_rv.h memory_content/code.bin memory_content/data.bin rv_tlm_0.h top.cpp)
 target_link_libraries(rv_tlm_0 SystemC::systemc)
