@@ -27,13 +27,6 @@ funct7;					// constante instrucao tipo J
 
 instruction_context_st global_ic;
 
-void init() {
-    breg[SP] = 0x00003ffc;                  // stack pointer
-    breg[GP] = 0x00001800;                  // global pointer
-    load_mem("memory_content/code.bin", 0);
-    load_mem("memory_content/data.bin", 0x2000);
-}
-
 
 uint32_t unsign(int32_t x) {
     return (uint32_t)x;
@@ -71,11 +64,6 @@ void step() {
 
 }
 
-void run() {
-    while (global_ic.pc < 0x2000) {
-        step();
-    }
-}
 
 void decode (instruction_context_st& ic) {
     int32_t tmp;
@@ -400,6 +388,7 @@ __attribute__((unused)) void debug_decode(instruction_context_st& ic) {
 
 __attribute__((unused)) void dump_reg(char format, bool include_zero = true) {
     printf("\n");
+
     auto base = (format == 'h') ? hex : dec;
     for (int i = 0; i < 32; i++) {
         if (breg[i] == 0 && !include_zero)
@@ -451,8 +440,8 @@ int load_mem(const char* fn, int start) {
     return size;
 }
 
-int main() {
-    init();
-    run();
-    return 0;
-}
+//int main() {
+//    init();
+//    run();
+//    return 0;
+//}

@@ -104,9 +104,11 @@ extern instruction_context_st global_ic;
 // Funções definidas em riscv.cpp
 //
 
-void init();
 void fetch ();
 void decode (instruction_context_st& ic);
+void pc_branch(int32_t offset, instruction_context_st& ic);
+uint32_t unsign(int32_t x);
+int logSh3(int32_t x, int32_t n);
 
 __attribute__((unused)) void print_instr(instruction_context_st& ic);
 INSTRUCTIONS get_instr_code(uint32_t opcode, uint32_t func3, uint32_t func7);
@@ -120,7 +122,6 @@ __attribute__((unused)) void dump_mem(int start_byte, int end_byte, char format)
 int load_mem(const char *fn, int start);
 void execute (instruction_context_st& ic);
 void step();
-void run();
 
 
 
